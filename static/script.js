@@ -1,6 +1,4 @@
-function updateLastModified() {
-    const course = document.getElementById('course').value;
-
+function updateLastModified(course) {
     fetch(`/last_modified/${course}`)
         .then(response => response.json())
         .then(data => {
@@ -15,6 +13,9 @@ function updateLastModified() {
 function getGrades() {
     const course = document.getElementById('course').value;
     const studentId = document.getElementById('studentId').value;
+
+    // Update the last modified timestamp
+    updateLastModified(course);
 
     fetch(`/grades/${course}/${studentId}`)
         .then(response => response.json())
@@ -38,6 +39,3 @@ function getGrades() {
             console.error('Error:', error);
         });
 }
-
-// Call updateLastModified() when the page loads to display the initial last updated timestamp
-window.onload = updateLastModified;

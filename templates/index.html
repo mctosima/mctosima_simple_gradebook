@@ -2,21 +2,25 @@
 <html>
 <head>
     <title>Gradebook System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
     <h1>Gradebook System</h1>
-    <label for="course">Select Course:</label>
-    <select id="course" name="course" onchange="updateLastModified()">
-        {% for course in courses %}
-        <option value="{{ course }}">{{ course }}</option>
-        {% endfor %}
-    </select>
-    <p id="lastUpdated"></p>
-    <br>
-    <label for="studentId">Enter Student ID:</label>
-    <input type="text" id="studentId" name="studentId">
-    <button onclick="getGrades()">Submit</button>
-    <div id="result"></div>
+    <h2>martin.manullang@if.itera.ac.id</h2>
+    <div class="container">
+        <label for="course">Select Course:</label>
+        <select id="course" name="course">
+            {% for course in courses %}
+            <option value="{{ course }}">{{ course }}</option>
+            {% endfor %}
+        </select>
+        <p id="lastUpdated"></p>
+        <br>
+        <label for="studentId">Enter Student ID:</label>
+        <input type="text" id="studentId" name="studentId">
+        <button onclick="getGrades()">Submit</button>
+        <div id="result"></div>
+    </div>
 </body>
 </html>

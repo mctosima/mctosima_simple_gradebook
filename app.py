@@ -1,9 +1,7 @@
 import os
-from datetime import datetime
 from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
-CSV_DIRECTORY = os.environ.get('CSV_DIRECTORY', '.')
 
 @app.route('/')
 def index():
@@ -17,11 +15,9 @@ def get_last_modified(course):
 
 @app.route('/grades/<course>/<student_id>')
 def get_grades(course, student_id):
-    grades = read_grades_from_csv(f'{course}.csv')
-    student_grades = grades.get(student_id)
-    
-    if student_grades:
-        return jsonify(student_grades)
+    grades = read_grades_from_csv(f'{course}.csv', student_id)
+    if grades:
+        return jsonify(grades)
     else:
         return jsonify({'error': 'Student ID not found'}), 404
 
@@ -31,20 +27,22 @@ def get_courses():
 
 def get_last_modified_date(course):
     csv_file = f'{course}.csv'
-    last_modified = os.path.getmtime(csv_file)
-    return datetime.fromtimestamp(last_modified).strftime('%Y-%m-%d %H:%M:%S')
+    with open(csv_file, 'r') as file:
+        first_line = file.readline().strip().split(',')
+        if first_line[0] == 'Last Updated':
+            return first_line[1]
+    return ''
 
-def read_grades_from_csv(file_path):
-    grades = {}
+def read_grades_from_csv(file_path, student_id):
     with open(file_path, 'r') as file:
         lines = file.readlines()
-        headers = lines[0].strip().split(',')
-        for line in lines[1:]:
+        headers = [header.strip() for header in lines[1].strip().split(',')]
+        for line in lines[2:]:
             values = line.strip().split(',')
-            student_id = values[0]
-            student_grades = {header: value for header, value in zip(headers[1:], values[1:])}
-            grades[student_id] = student_grades
-    return grades
+            if values[0] == student_id:
+                student_grades = dict(zip(headers, values))
+                return student_grades
+    return None
 
 if __name__ == '__main__':
     app.run(debug=True)
