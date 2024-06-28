@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gradebook System</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <h1>Gradebook System</h1>
+    <label for="course">Select Course:</label>
+    <select id="course" name="course" onchange="updateLastModified()">
+        {% for course in courses %}
+        <option value="{{ course }}">{{ course }}</option>
+        {% endfor %}
+    </select>
+    <p id="lastUpdated"></p>
+    <br>
+    <label for="studentId">Enter Student ID:</label>
+    <input type="text" id="studentId" name="studentId">
+    <button onclick="getGrades()">Submit</button>
+    <div id="result"></div>
+</body>
+</html>
