@@ -29,7 +29,7 @@ label {
 
 select, input[type="text"], button {
     width: 100%;
-    box-sizing: border-box; /* Ensure padding is included in the width */
+    box-sizing: border-box;
     padding: 10px;
     margin-top: 5px;
     font-size: 16px;
@@ -50,6 +50,49 @@ button:hover {
     margin-top: 20px;
     padding: 10px;
     background-color: #1f1f1f;
+}
+
+.grades-list {
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.grade-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.grade-header {
+    font-weight: bold;
+    color: #64B5F6;
+}
+
+.grade-separator {
+    border: none;
+    height: 1px;
+    background-color: #4CAF50;
+    margin: 15px 0;
+}
+
+#gradeAppealButton {
+    margin-top: 20px;
+    background-color: #f44336;
+}
+
+#gradeAppealButton:hover {
+    background-color: #d32f2f;
+}
+
+#exportPdfButton {
+    margin-top: 10px;
+    background-color: #2196F3;
+}
+
+#exportPdfButton:hover {
+    background-color: #1976D2;
 }
 
 @media (max-width: 600px) {

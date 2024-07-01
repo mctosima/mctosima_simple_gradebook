@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Gradebook System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v={{ version }}">
+    <script src="{{ url_for('static', filename='script.js') }}?v={{ version }}"></script>
 </head>
 <body>
     <h1>Gradebook System</h1>
@@ -19,8 +19,10 @@
         <br>
         <label for="studentId">Enter Student ID:</label>
         <input type="text" id="studentId" name="studentId">
-        <button onclick="getGrades()">Submit</button>
+        <button id="submitButton">Submit</button>
         <div id="result"></div>
+        <button id="gradeAppealButton" style="display: none;">Grade Appeal</button>
+        <button id="exportPdfButton" style="display: none;">Export to PDF</button>
     </div>
 </body>
 </html>
